@@ -10,6 +10,7 @@
     "inngest:dev": "inngest-cli dev"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.64",
     "@base-ui/react": "^1.4.1",
     "@hookform/resolvers": "^5.2.2",
     "@prisma/client": "^6.16.3",
@@ -17,6 +18,7 @@
     "@trpc/client": "^11.16.0",
     "@trpc/server": "^11.16.0",
     "@trpc/tanstack-react-query": "^11.16.0",
+    "ai": "^6.0.168",
     "better-auth": "^1.6.7",
     "class-variance-authority": "^0.7.1",
     "client-only": "^0.0.1",
