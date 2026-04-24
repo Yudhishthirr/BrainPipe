@@ -23,6 +23,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
+import { useHasActiveSubscription, useSubscription } from "@/features/subscriptions/hooks/use-subscription";
 // import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use-subscription";
 
 const menuItems = [
@@ -51,8 +52,14 @@ const menuItems = [
 export const AppSidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  // const { hasActiveSubscription, isLoading } = useHasActiveSubscription();
 
+  // const { data } = useSubscription();
+  // console.log("useSubscription data");
+  // console.log(data);
+
+  const { hasActiveSubscription, isLoading } = useHasActiveSubscription();
+  console.log("hasActiveSubscription");
+  console.log(hasActiveSubscription);
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -94,7 +101,7 @@ export const AppSidebar = () => {
           </SidebarGroup>
         ))}
       </SidebarContent>
-      {/* <SidebarFooter>
+      <SidebarFooter>
         <SidebarMenu>
           {!hasActiveSubscription && !isLoading && (
             <SidebarMenuItem>
@@ -135,7 +142,7 @@ export const AppSidebar = () => {
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
-      </SidebarFooter> */}
+      </SidebarFooter>
     </Sidebar>
   );
 };
