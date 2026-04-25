@@ -1,16 +1,18 @@
-import { z } from 'zod';
-import { baseProcedure, protectedProcedure, createTRPCRouter } from '../init';
-import prisma from '@/lib/db';
+
+import { protectedProcedure, createTRPCRouter } from '../init';
+
+import { workflowsRouter } from '@/features/workflows/server/routers';
 
 export const appRouter = createTRPCRouter({
-    getUsers: protectedProcedure.query(({ ctx }) => {
-        console.log({ userId: ctx.auth.user.id })
-        return prisma.user.findMany({
-            where: {
-                id: ctx.auth.user.id
-            }
-        });
-    })
+    // getUsers: protectedProcedure.query(({ ctx }) => {
+    //     console.log({ userId: ctx.auth.user.id })
+    //     return prisma.user.findMany({
+    //         where: {
+    //             id: ctx.auth.user.id
+    //         }
+    //     });
+    // }),
+    workflows: workflowsRouter,
 });
 
 // export type definition of API
