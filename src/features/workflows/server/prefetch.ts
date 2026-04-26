@@ -8,6 +8,10 @@ export const prefetchWorkflows = (params: input) => {
     return prefetch(trpc.workflows.getMany.queryOptions(params));
 }
 
+export const prefetchSingleWorkflow = (id: string) => {
+
+    return prefetch(trpc.workflows.getOne.queryOptions({ id }));
+}
 
 // Calls your tRPC route on the server
 // Stores result inside React Query cache
