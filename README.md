@@ -14,29 +14,29 @@ The platform is designed to be flexible, scalable, and extensible with support f
 
 ## 🧠 Features
 
-- 🔗 **Node-Based Workflow Builder**  
-  Create complex pipelines using modular, connectable nodes  
+* 🔗 **Node-Based Workflow Builder**
+  Create complex pipelines using modular, connectable nodes
 
-- 🤖 **Multi-AI Integration**  
-  Supports OpenAI, Anthropic, and Gemini  
+* 🤖 **Multi-AI Integration**
+  Supports OpenAI, Anthropic, and Gemini
 
-- 🌐 **External Model Support**  
-  Extend functionality using Replicate-hosted models  
+* 🌐 **External Model Support**
+  Extend functionality using Replicate-hosted models
 
-- ⚡ **Dynamic Task Execution**  
-  Execute workflows in real-time  
+* ⚡ **Dynamic Task Execution**
+  Execute workflows in real-time
 
-- 🏗️ **Scalable Architecture**  
-  Built using modern full-stack technologies  
+* 🏗️ **Scalable Architecture**
+  Built using modern full-stack technologies
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** Next.js, TypeScript  
-- **Backend:** Next.js (API Routes / Server Actions)  
-- **AI Providers:** OpenAI, Anthropic, Gemini  
-- **External Models:** Replicate  
+* **Frontend:** Next.js, TypeScript
+* **Backend:** Next.js (API Routes / Server Actions)
+* **AI Providers:** OpenAI, Anthropic, Gemini
+* **External Models:** Replicate
 
 ---
 
@@ -53,3 +53,81 @@ The platform is designed to be flexible, scalable, and extensible with support f
 ```bash
 git clone https://github.com/Yudhishthirr/BrainPipe.git
 cd BrainPipe
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+### 3. Setup Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```env
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_anthropic_key
+GEMINI_API_KEY=your_gemini_key
+REPLICATE_API_TOKEN=your_replicate_token
+```
+
+### 4. Run the development server
+
+```bash
+npm run dev
+```
+
+Open http://localhost:3000 in your browser.
+
+---
+
+## 📂 Project Structure
+
+```
+/app
+/components
+/features/workflows
+/lib
+/public
+```
+
+---
+
+## 🧩 How It Works
+
+1. Users create workflows using a node-based visual interface
+2. Each node represents a task (AI call, transformation, etc.)
+3. Nodes are connected to form execution pipelines
+4. The system executes workflows step-by-step
+
+---
+
+## 🌍 Future Improvements
+
+* Drag-and-drop UI enhancements
+* More third-party integrations
+* Workflow templates
+* Real-time collaboration
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 💡 Inspiration
+
+Inspired by workflow automation tools like n8n, enhanced with modern AI capabilities.
