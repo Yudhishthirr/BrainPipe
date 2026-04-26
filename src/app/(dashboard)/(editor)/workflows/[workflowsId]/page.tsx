@@ -1,4 +1,6 @@
-import { EditorError, EditorLoading } from "@/features/editor/components/editor";
+
+
+import { Editor, EditorError, EditorLoading } from "@/features/editor/components/editor";
 import { EditorHeader } from "@/features/editor/components/editor-header";
 import { prefetchSingleWorkflow } from "@/features/workflows/server/prefetch";
 import { requireAuth } from "@/lib/auth-utils";
@@ -21,7 +23,7 @@ const Page = async ({ params }: { params: Promise<{ workflowsId: string }> }) =>
                 <Suspense fallback={<EditorLoading />}>
                     <EditorHeader workflowId={workflowsId} />
                     <main className="flex-1">
-                        {/* <Editor workflowId={workflowId} /> */}
+                        <Editor workflowId={workflowsId} />
                     </main>
                 </Suspense>
             </ErrorBoundary>

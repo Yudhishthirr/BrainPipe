@@ -4,14 +4,6 @@ import { protectedProcedure, createTRPCRouter } from '../init';
 import { workflowsRouter } from '@/features/workflows/server/routers';
 
 export const appRouter = createTRPCRouter({
-    // getUsers: protectedProcedure.query(({ ctx }) => {
-    //     console.log({ userId: ctx.auth.user.id })
-    //     return prisma.user.findMany({
-    //         where: {
-    //             id: ctx.auth.user.id
-    //         }
-    //     });
-    // }),
     workflows: workflowsRouter,
 });
 
