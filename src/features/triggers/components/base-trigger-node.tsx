@@ -9,9 +9,9 @@ import { BaseNode, BaseNodeContent } from "../../../components/react-flow/base-n
 import { BaseHandle } from "../../../components/react-flow/base-handle";
 import { WorkflowNode } from "../../../components/workflow-node";
 
-interface BaseExecutionNodeProps extends NodeProps<any> {
+interface BaseTriggerNodeProps extends NodeProps<any> {
     name: string;
-    description: string;
+    // description: string;
     icon?: LucideIcon | string;
     children?: ReactNode;
     onSettings?: () => void;
@@ -20,33 +20,27 @@ interface BaseExecutionNodeProps extends NodeProps<any> {
 }
 
 
-export const BaseExecutionNode = memo(({
+export const BaseTriggerNode = memo(({
     id,
     name,
-    description,
+    // description,
     icon: Icon,
     children,
     onSettings,
     onDoubleClick,
     ...props
-}: BaseExecutionNodeProps) => {
+}: BaseTriggerNodeProps) => {
 
     const handleDelete = () => { }
     return (
         <WorkflowNode
             name={name}
-            description={description}
+            // description={description}
             onSettings={onSettings}
             onDelete={onDoubleClick}
         >
-            <BaseNode onDoubleClick={onDoubleClick}>
+            <BaseNode onDoubleClick={onDoubleClick}  className="rounded-l-2xl relative group">
                 <BaseNodeContent>
-
-                    {/* {Icon && typeof Icon === "string" ? (
-                        <Image src={Icon} alt={name} width={16} height={16} />
-                    ) : (
-                        <Icon className="size-4 text-muted-foreground" />
-                    )} */}
 
                     {typeof Icon === "string" ? (
                         <Image src={Icon} alt={name} width={16} height={16} />
@@ -55,11 +49,6 @@ export const BaseExecutionNode = memo(({
                     ) : null}
 
                     {children}
-                    <BaseHandle
-                        id="target-1"
-                        type="target"
-                        position={Position.Right}
-                    />
                     <BaseHandle
                         id="soruce-1"
                         type="source"
@@ -71,7 +60,7 @@ export const BaseExecutionNode = memo(({
     )
 })
 
-BaseExecutionNode.displayName = "BaseExecutionNode";
+BaseTriggerNode.displayName = "BaseTriggerNode";
 
 
 // this is the our main node it has name id description and icon 
