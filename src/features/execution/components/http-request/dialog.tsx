@@ -82,7 +82,11 @@ export const HttpRequestDialog = ({
         body: defaultValues.body || "",
       });
     }
-  }, [open, defaultValues, form]);
+  // }, [open, defaultValues, form]);
+  }, [open, defaultValues.variableName,
+  defaultValues.endpoint,
+  defaultValues.method,
+  defaultValues.body]);
 
   const watchVariableName = form.watch("variableName") || "myApiCall";
   const watchMethod = form.watch("method");

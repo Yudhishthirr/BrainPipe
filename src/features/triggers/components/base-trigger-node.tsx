@@ -1,66 +1,86 @@
-"use client"
+"use client";
 
-import { type NodeProps, Position } from "@xyflow/react"
+import { type NodeProps, Position, useReactFlow } from "@xyflow/react";
 import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
 import { memo, type ReactNode } from "react";
-import { BaseNode, BaseNodeContent } from "../../../components/react-flow/base-node";
+import { BaseNode, BaseNodeContent } from "@/components/react-flow/base-node";
+import { BaseHandle } from "@/components/react-flow/base-handle";
+import { WorkflowNode } from "@/components/workflow-node";
+import { type NodeStatus, NodeStatusIndicator } from "@/components/react-flow/node-status-indicator";
 
-import { BaseHandle } from "../../../components/react-flow/base-handle";
-import { WorkflowNode } from "../../../components/workflow-node";
+interface BaseTriggerNodeProps extends NodeProps {
+  icon: LucideIcon | string;
+  name: string;
+  description?: string;
+  children?: ReactNode;
+  status?: NodeStatus;
+  onSettings?: () => void;
+  onDoubleClick?: () => void;
+};
 
-interface BaseTriggerNodeProps extends NodeProps<any> {
-    name: string;
-    // description: string;
-    icon?: LucideIcon | string;
-    children?: ReactNode;
-    onSettings?: () => void;
-    onDoubleClick?: () => void;
-    // status?: NodeStatus;
-}
-
-
-export const BaseTriggerNode = memo(({
+export const BaseTriggerNode = memo(
+  ({
     id,
-    name,
-    // description,
     icon: Icon,
+    name,
+    description,
     children,
+    status = "initial",
     onSettings,
     onDoubleClick,
-    ...props
-}: BaseTriggerNodeProps) => {
+  }: BaseTriggerNodeProps) => {
+    const { setNodes, setEdges } = useReactFlow();
+    const handleDelete = () => {
+      setNodes((currentNodes) => {
+        const updatedNodes = currentNodes.filter((node) => node.id !== id);
+        return updatedNodes;
+      });
 
-    const handleDelete = () => { }
+      setEdges((currentEdges) => {
+        const updatedEdges = currentEdges.filter(
+          (edge) => edge.source !== id && edge.target !== id
+        );
+        return updatedEdges;
+      });
+    };
+
     return (
-        <WorkflowNode
-            name={name}
-            // description={description}
-            onSettings={onSettings}
-            onDelete={onDoubleClick}
+      <WorkflowNode
+        name={name}
+        description={description}
+        onDelete={handleDelete}
+        onSettings={onSettings}
+      >
+        <NodeStatusIndicator
+          status={status}
+          variant="border"
+          className="rounded-l-2xl"
         >
-            <BaseNode onDoubleClick={onDoubleClick}  className="rounded-l-2xl relative group">
-                <BaseNodeContent>
-
-                    {typeof Icon === "string" ? (
-                        <Image src={Icon} alt={name} width={16} height={16} />
-                    ) : Icon ? (
-                        <Icon className="size-4 text-muted-foreground" />
-                    ) : null}
-
-                    {children}
-                    <BaseHandle
-                        id="soruce-1"
-                        type="source"
-                        position={Position.Left}
-                    />
-                </BaseNodeContent>
-            </BaseNode>
-        </WorkflowNode>
+          <BaseNode status={status} onDoubleClick={onDoubleClick} className="rounded-l-2xl relative group">
+            <BaseNodeContent>
+              {typeof Icon === "string" ? (
+                <Image 
+                  src={Icon} 
+                  alt={name} 
+                  width={16} 
+                  height={16}
+                />
+              ) : (
+                <Icon className="size-4 text-muted-foreground" />
+              )}
+              {children}
+              <BaseHandle
+                id="source-1"
+                type="source"
+                position={Position.Right}
+              />
+            </BaseNodeContent>
+          </BaseNode>
+        </NodeStatusIndicator>
+      </WorkflowNode>
     )
-})
+  },
+);
 
 BaseTriggerNode.displayName = "BaseTriggerNode";
-
-
-// this is the our main node it has name id description and icon 

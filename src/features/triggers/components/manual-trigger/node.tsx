@@ -10,6 +10,7 @@ import { ManualTriggerDialog } from "./dialog";
 export const ManualTriggerNode = memo((props: NodeProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
+   const nodeStatus = "loading"; // Placeholder status until real-time updates are implemented
   // const nodeStatus = useNodeStatus({
   //   nodeId: props.id,
   //   channel: MANUAL_TRIGGER_CHANNEL_NAME,
@@ -29,7 +30,7 @@ export const ManualTriggerNode = memo((props: NodeProps) => {
         {...props}
         icon={MousePointerIcon}
         name="When clicking 'Execute workflow'"
-        // status={nodeStatus}
+        status={nodeStatus}
         onSettings={handleOpenSettings}
         onDoubleClick={handleOpenSettings}
       />
