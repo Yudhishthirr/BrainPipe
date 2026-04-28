@@ -83,16 +83,14 @@ export const HttpRequestDialog = ({
       });
     }
   // }, [open, defaultValues, form]);
-  }, [open, defaultValues.variableName,
-  defaultValues.endpoint,
-  defaultValues.method,
-  defaultValues.body]);
+  }, [open]);
 
   const watchVariableName = form.watch("variableName") || "myApiCall";
   const watchMethod = form.watch("method");
   const showBodyField = ["POST", "PUT", "PATCH"].includes(watchMethod);
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log("Submitting form with values:", values);
     onSubmit(values);
     onOpenChange(false);
   };

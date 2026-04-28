@@ -21,20 +21,41 @@ type HttpRequestNodeType = Node<HttpRequestNodeData>;
 export const HttpRequestNode = memo((props: NodeProps<HttpRequestNodeType>) => {
 
     const [dialogOpen, setDialogOpen] = useState(false);
+    const { setNodes } = useReactFlow();
+
 
     const handleOpenSettings = () => setDialogOpen(true);
+    
+    const handleSubmit = (values: HttpRequestFormValues) => {
+    setNodes((nodes) => nodes.map((node) => {
+      if (node.id === props.id) {
+        return {
+          ...node,
+          data: {
+            ...node.data,
+            ...values,
+          }
+        }
+       }
+       return node;
+     }))
+   };
+
     const nodeStatus = "initial"; // Placeholder status until real-time updates are implemented
     const nodeData = props.data;
     const description = nodeData?.endpoint
         ? `${nodeData.method || "GET"}: ${nodeData.endpoint}`
         : "Not configured";
 
+    console.log("nodeData", nodeData);
+    console.log("description", description);
     return (
         <>
         <HttpRequestDialog
                 open={dialogOpen}
                 onOpenChange={setDialogOpen}
-                onSubmit={()=> {}}
+                onSubmit={handleSubmit}
+                defaultValues={nodeData}
               />
             <BaseExecutionNode
                 {...props}
