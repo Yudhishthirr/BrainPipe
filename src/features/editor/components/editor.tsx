@@ -27,6 +27,7 @@ import { editorAtom } from '../store/atoms';
 import { AddNodeButton } from './add-node-button';
 import { ExecuteWorkflowButton } from './execute-workflow-button';
 import { nodeComponents } from '@/config/node-components';
+import { NodeType } from '@/generated/prisma/browser';
 
 
 export const EditorLoading = () => {
@@ -72,6 +73,11 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
 
 
 
+    const hasManualTrigger = useMemo(() => {
+        return nodes.some((node) => node.type === NodeType.MANUAL_TRIGGER);
+    }, [nodes]);
+
+
     return (
         <div className='size-full'>
             <ReactFlow
@@ -95,6 +101,12 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
                 <Panel position="top-right">
                     <AddNodeButton />
                 </Panel>
+
+               {hasManualTrigger && (
+                <Panel position="bottom-center">
+                    <ExecuteWorkflowButton workflowId={workflowId} />
+                </Panel>
+                )}
 
             </ReactFlow>
         </div>

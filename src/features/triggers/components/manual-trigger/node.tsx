@@ -10,7 +10,7 @@ import { ManualTriggerDialog } from "./dialog";
 export const ManualTriggerNode = memo((props: NodeProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
-   const nodeStatus = "loading"; // Placeholder status until real-time updates are implemented
+   const nodeStatus = "initial"; // Placeholder status until real-time updates are implemented
   // const nodeStatus = useNodeStatus({
   //   nodeId: props.id,
   //   channel: MANUAL_TRIGGER_CHANNEL_NAME,

@@ -110,6 +110,22 @@ export const useUpdateWorkflow = () => {
 };
 
 
+export const useExecuteWorkflow = () => {
+    const trpc = useTRPC();
+
+    return useMutation(
+        trpc.workflows.execute.mutationOptions({
+            onSuccess: (data) => {
+                toast.success(`Workflow "${data.name}" executed`);
+            },
+            onError: (error) => {
+                toast.error(`Failed to execute workflow: ${error.message}`);
+            },
+        }),
+    );
+};
+
+
 // Runs in browser
 // Reads from React Query cache
 // If cache exists → instant data
@@ -150,3 +166,7 @@ export const useUpdateWorkflow = () => {
 // 11. Data returned instantly
 
 // 12. UI renders workflows
+
+
+// IMPORTANT 
+// All parameters pass when we acually call the hook in the component, not when we define the hook. This allows us to use the same hook for different parameters (e.g. different workflow ids) without having to redefine the hook for each case.
