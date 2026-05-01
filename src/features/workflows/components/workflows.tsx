@@ -18,6 +18,8 @@ import type { Workflow } from "@/generated/prisma/client";
 
 export const WorkflowList = () => {
     const workflows = useSuspenseWorkflow();
+    // console.log("Workflows data:")
+    // console.log(workflows)
     if (workflows.data.items.length !== 0) {
         return (
             <EntityList

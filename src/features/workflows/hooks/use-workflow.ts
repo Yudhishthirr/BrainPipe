@@ -61,7 +61,7 @@ export const useRemoveWorkflow = () => {
 
 export const useSuspenseSingleWorkflow = (id: string) => {
     const trpc = useTRPC();
-    console.log("id", id);
+    // console.log("id", id);
     return useSuspenseQuery(trpc.workflows.getOne.queryOptions({ id }));
 }
 

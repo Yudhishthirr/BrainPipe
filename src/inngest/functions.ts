@@ -4,10 +4,22 @@ import { inngest } from "./client";
 import prisma from "@/lib/db";
 import { topologicalSort } from "./utils";
 import { getExecutor } from "@/features/execution/lib/executor-registry";
+// import { ht } from "date-fns/locale";
+import { httpRequestChannel } from "./channels/http-request";
+
 
 export const executeWorkflow = inngest.createFunction(
-    { id: "execute-workflow", triggers: { event: "workflow/execute.workflow" } },
-    async ({ event, step }) => {
+    {
+        id: "execute-workflow",
+        retries: 0, //change it to producation
+    },
+    {
+        event: "workflows/execute.workflow",
+        channels: [
+            httpRequestChannel(),
+        ],
+    },
+    async ({ event, step, publish }) => {
 
         const workflowId = event.data.workflowId;
 
@@ -15,8 +27,8 @@ export const executeWorkflow = inngest.createFunction(
             throw new NonRetriableError("Workflow ID is required");
         }
 
+     
         // get nodes for workflow from database
-
         const SortedNodes = await step.run("prepare workflow", async () => {
             const workflow = await prisma.workflow.findUniqueOrThrow({
                 where: { id: workflowId },
@@ -29,10 +41,19 @@ export const executeWorkflow = inngest.createFunction(
 
             return topologicalSort(workflow.nodes, workflow.connections);
         });
-        console.log("Sorted Nodes: ", SortedNodes);
+        // console.log("Sorted Nodes: ", SortedNodes);
         // return SortedNodes;
 
+        const userId = await step.run("find-user-id", async () => {
+            const workflow = await prisma.workflow.findUniqueOrThrow({
+                where: { id: workflowId },
+                select: {
+                    userId: true,
+                },
+            });
 
+            return workflow.userId;
+        });
         let context = event.data.initialData || {};
 
         // execute each node in order
@@ -41,16 +62,16 @@ export const executeWorkflow = inngest.createFunction(
             context = await executor({
                 data: node.data as Record<string, unknown>,
                 nodeId: node.id,
-                // userId,
+                userId,
                 context,
                 step,
-                // publish,
+                publish,
             });
         }
 
         return {
-            workflowId:workflowId,
-            result:context,
+            workflowId: workflowId,
+            result: context,
         }
         await step.sleep("test", "5s");
     }

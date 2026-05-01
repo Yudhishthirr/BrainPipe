@@ -24,6 +24,9 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
+
+
+
 type EntityHeaderProps = {
   title: string;
   description?: string;
@@ -255,6 +258,7 @@ export function EntityList<T>({
   emptyView,
   className,
 }: EntityListProps<T>) {
+  // console.log(getKey)
   if (items.length === 0 && emptyView) {
     return (
       <div className="flex-1 flex justify-center items-center">

@@ -51,8 +51,8 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
 export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
 
   const { data: workflow } = useSuspenseSingleWorkflow(workflowId);
-  console.log("data")
-  console.log(workflow);
+  // console.log("data")
+  // console.log(workflow);
   const updateWorkflow = useUpdateWorkflowName();
 
   const [isEditing, setIsEditing] = useState(false);

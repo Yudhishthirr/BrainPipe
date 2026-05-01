@@ -90,7 +90,7 @@ export const HttpRequestDialog = ({
   const showBodyField = ["POST", "PUT", "PATCH"].includes(watchMethod);
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log("Submitting form with values:", values);
+    // console.log("Submitting form with values:", values);
     onSubmit(values);
     onOpenChange(false);
   };

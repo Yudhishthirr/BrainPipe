@@ -58,8 +58,8 @@ export const AppSidebar = () => {
   // console.log(data);
 
   const { hasActiveSubscription, isLoading } = useHasActiveSubscription();
-  console.log("hasActiveSubscription");
-  console.log(hasActiveSubscription);
+  // console.log("hasActiveSubscription");
+  // console.log(hasActiveSubscription);
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
