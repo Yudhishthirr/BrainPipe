@@ -6,6 +6,7 @@ import { topologicalSort } from "./utils";
 import { getExecutor } from "@/features/execution/lib/executor-registry";
 // import { ht } from "date-fns/locale";
 import { httpRequestChannel } from "./channels/http-request";
+import { manualTriggerChannel } from "./channels/manual-trigger";
 
 
 export const executeWorkflow = inngest.createFunction(
@@ -17,6 +18,7 @@ export const executeWorkflow = inngest.createFunction(
         event: "workflows/execute.workflow",
         channels: [
             httpRequestChannel(),
+            manualTriggerChannel(),
         ],
     },
     async ({ event, step, publish }) => {
