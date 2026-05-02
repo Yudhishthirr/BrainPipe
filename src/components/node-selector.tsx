@@ -98,11 +98,16 @@ export function NodeSelector({
   onOpenChange,
   children
 }: NodeSelectorProps) {
+
+
   const { setNodes, getNodes, screenToFlowPosition } = useReactFlow();
 
   const handleNodeSelect = useCallback((selection: NodeTypeOption) => {
+
     // Check if trying to add a manual trigger when one already exists
     if (selection.type === NodeType.MANUAL_TRIGGER) {
+
+      // to get all current nodes on canvas  
       const nodes = getNodes();
       const hasManualTrigger = nodes.some(
         (node) => node.type === NodeType.MANUAL_TRIGGER,
@@ -114,7 +119,10 @@ export function NodeSelector({
       }
     }
 
+    // yha se node select krne pr screen ke center me node add hoga, 
+    // screenToFlowPosition se screen ke coordinate ko flow ke coordinate me convert kr rhe hai
     setNodes((nodes) => {
+      // INITIAL node = placeholder / starting empty node
       const hasInitialTrigger = nodes.some(
         (node) => node.type === NodeType.INITIAL,
       );
@@ -137,17 +145,14 @@ export function NodeSelector({
       if (hasInitialTrigger) {
         return [newNode];
       }
-
+// Ye ReactFlow ke nodes state me add ho gaya
+      console.log("Adding node:", newNode);
+      console.log("Current nodes before adding:", nodes);
       return [...nodes, newNode];
     });
 
     onOpenChange(false);
-  }, [
-    setNodes,
-    getNodes,
-    onOpenChange,
-    screenToFlowPosition,
-  ]);
+  }, [setNodes,getNodes,onOpenChange,screenToFlowPosition]);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>

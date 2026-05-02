@@ -24,9 +24,12 @@ export const GoogleFormTriggerDialog = ({
   open,
   onOpenChange
 }: Props) => {
-  const params = useParams();
-  const workflowId = params.workflowId as string;
 
+
+  const params = useParams();
+
+  const workflowId = params.workflowsId as string;
+  console.log("Workflow ID:", workflowId); // Debug log to check workflowId value
   // Construct the webhook URL
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
   const webhookUrl = 

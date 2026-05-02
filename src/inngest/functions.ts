@@ -7,6 +7,8 @@ import { getExecutor } from "@/features/execution/lib/executor-registry";
 // import { ht } from "date-fns/locale";
 import { httpRequestChannel } from "./channels/http-request";
 import { manualTriggerChannel } from "./channels/manual-trigger";
+import { google } from "better-auth";
+import { googleFormTriggerChannel } from "./channels/google-form-trigger";
 
 
 export const executeWorkflow = inngest.createFunction(
@@ -19,6 +21,7 @@ export const executeWorkflow = inngest.createFunction(
         channels: [
             httpRequestChannel(),
             manualTriggerChannel(),
+            googleFormTriggerChannel(), // Add the Google Form Trigger channel here
         ],
     },
     async ({ event, step, publish }) => {

@@ -54,3 +54,8 @@ export function WorkflowNode({
     </>
   );
 };
+
+
+// this file containes the base things that required for all types of nudes
+// like settings and delete button 
+// and name and description and also has the onDelete, onSettings,

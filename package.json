@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "inngest:dev": "inngest-cli dev"
+    "inngest:dev": "inngest-cli dev",
+    "ngrok:dev": "ngrok http 3000 --domain=electric-namely-grackle.ngrok-free.app"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.64",

@@ -41,13 +41,6 @@ export const EditorError = () => {
 
 
 
-// const initialNodes = [
-//     { id: 'n1', position: { x: 0, y: 0 }, data: { label: 'Node 1' } },
-//     { id: 'n2', position: { x: 0, y: 100 }, data: { label: 'Node 2' } },
-// ];
-
-// const initialEdges = [{ id: 'n1-n2', source: 'n1', target: 'n2' }];
-
 export const Editor = ({ workflowId }: { workflowId: string }) => {
     const {
         data: workflow
@@ -77,7 +70,7 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
         return nodes.some((node) => node.type === NodeType.MANUAL_TRIGGER);
     }, [nodes]);
 
-
+    console.log("node type",nodeComponents);
     return (
         <div className='size-full'>
             <ReactFlow
@@ -112,3 +105,17 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
         </div>
     );
 };
+
+
+
+
+{/* <ReactFlow
+  nodes={nodes}
+  edges={edges} */}
+// render the nodes and edges on canvas
+
+
+// editor.tsx:
+// - DB se nodes load karta hai
+// - state maintain karta hai
+// - ReactFlow ko render karta hai

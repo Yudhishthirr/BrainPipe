@@ -30,7 +30,11 @@ export const BaseExecutionNode = memo(
     onSettings,
     onDoubleClick,
   }: BaseExecutionNodeProps) => {
+
+
     const { setNodes, setEdges } = useReactFlow();
+
+
     const handleDelete = () => {
       setNodes((currentNodes) => {
         const updatedNodes = currentNodes.filter((node) => node.id !== id);
@@ -83,3 +87,6 @@ export const BaseExecutionNode = memo(
 );
 
 BaseExecutionNode.displayName = "BaseExecutionNode";
+
+// this files has the base node and have all defination of nodes funcations that 
+// pass into the it's supported components like workflow node 

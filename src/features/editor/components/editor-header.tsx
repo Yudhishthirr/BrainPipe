@@ -21,6 +21,8 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
 
 
   const editor = useAtomValue(editorAtom);
+  console.log("editor in header")
+  console.log(editor);
   const saveWorkflow = useUpdateWorkflow();
 
   const handleSave = () => {
@@ -31,6 +33,7 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
     const nodes = editor.getNodes();
     const edges = editor.getEdges();
 
+    console.log("Saving workflow", { nodes, edges });
     saveWorkflow.mutate({
       id: workflowId,
       nodes,

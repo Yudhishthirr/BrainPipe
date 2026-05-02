@@ -6,7 +6,8 @@ import z from "zod";
 import type { Node, Edge } from "@xyflow/react";
 import { da, id } from "date-fns/locale";
 import { inngest } from "@/inngest/client";
-
+import { send } from "process";
+import { sendWorkflowExecution } from "@/inngest/utils";
 
 export const workflowsRouter = createTRPCRouter({
 
@@ -19,10 +20,13 @@ export const workflowsRouter = createTRPCRouter({
         
         // add inngest trigger here
         
-        await inngest.send({
-            name:"workflows/execute.workflow",
-            data:{workflowId: workflow.id}
+        await sendWorkflowExecution({
+            workflowId: input.id,
         })
+        // await inngest.send({
+        //     name:"workflows/execute.workflow",
+        //     data:{workflowId: workflow.id}
+        // })
         
         return workflow;
     }),
@@ -59,6 +63,22 @@ export const workflowsRouter = createTRPCRouter({
     .input(
       z.object({ 
         id: z.string(), 
+
+//         {
+//   "id": "y1vykm04cunfxp20x8ps6jmt",
+//   "type": "MANUAL_TRIGGER",
+//   "data": {},
+//   "measured": {
+//     "width": 42,
+//     "height": 42
+//   },
+//   "position": {
+//     "x": -210,
+//     "y": -10
+//   }
+// }
+// this is the node data we got from the react flow 
+
         nodes: z.array(
           z.object({
             id: z.string(),
@@ -67,6 +87,15 @@ export const workflowsRouter = createTRPCRouter({
             data: z.record(z.string(), z.any()).optional(),
           }),
         ),
+// {
+//   "id": "cmomxgumo000bvny80pl6r9cd",
+//   "source": "y1vykm04cunfxp20x8ps6jmt",
+//   "sourceHandle": "source-1",
+//   "target": "h2sptxwdn8739mtea57p3duk",
+//   "targetHandle": "target-1"
+// }
+
+// this is the edge data we got from the react flow letter we used in connection via trasfromming it 
         edges: z.array(
           z.object({
             source: z.string(),
@@ -115,6 +144,7 @@ export const workflowsRouter = createTRPCRouter({
         });
 
         // Update workflow's updateAt timestamp
+        // "jab bhi workflow save ho → uska last updated time update karo"
         await tx.workflow.update({
           where: { id },
           data: { updatedAt: new Date() },
