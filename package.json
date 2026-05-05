@@ -36,6 +36,7 @@
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
     "handlebars": "^4.7.9",
+    "html-entities": "^2.6.0",
     "inngest": "^3.44.1",
     "inngest-cli": "^1.12.1",
     "input-otp": "^1.4.2",
