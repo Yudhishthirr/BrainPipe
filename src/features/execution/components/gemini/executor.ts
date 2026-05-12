@@ -80,6 +80,8 @@ export const geminiExecutor: NodeExecutor<GeminiData> = async ({
     });
   });
 
+  // console.log(`this is the gamini api key ${credential?.value}`)
+  // console.log(`This is the Gemini API key after decrypt: ${decrypt(credential?.value)}`);
   if (!credential) {
     await publish(
       geminiChannel().status({
@@ -95,12 +97,21 @@ export const geminiExecutor: NodeExecutor<GeminiData> = async ({
     // apiKey: process.env.GEMINI_API_KEY
   });
 
+  // const ai = new GoogleGenAI({
+  //   apiKey: "AIzaSyCyztaN5ax977lVbR8c_GxhguIVkAMkIkQ"
+  // });
+
+  // const response = await ai.models.generateContent({
+  //   model: "gemini-3-flash-preview",
+  //   contents: "Explain how AI works in a few words",
+  // });
   try {
     const { steps } = await step.ai.wrap(
       "gemini-generate-text",
       generateText,
       {
-        model: google("gemini-2.0-flash"),
+        // model: google("gemini-2.0-flash"),gemini-3-flash-preview
+        model: google("gemini-3-flash-preview"),
         system: systemPrompt,
         prompt: userPrompt,
         experimental_telemetry: {
