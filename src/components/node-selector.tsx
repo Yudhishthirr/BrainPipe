@@ -61,18 +61,6 @@ const executionNodes: NodeTypeOption[] = [
     icon: "/logos/gemini.svg",
   },
   {
-    type: NodeType.OPENAI,
-    label: "OpenAI",
-    description: "Uses OpenAI to generate text",
-    icon: "/logos/openai.svg",
-  },
-  {
-    type: NodeType.ANTHROPIC,
-    label: "Anthropic",
-    description: "Uses Anthropic to generate text",
-    icon: "/logos/anthropic.svg",
-  },
-  {
     type: NodeType.DISCORD,
     label: "Discord",
     description: "Send a message to Discord",
@@ -83,6 +71,12 @@ const executionNodes: NodeTypeOption[] = [
     label: "Slack",
     description: "Send a message to Slack",
     icon: "/logos/slack.svg",
+  },
+  {
+    type: NodeType.NOTION,
+    label: "Notion",
+    description: "Create a page in Notion",
+    icon: "/logos/notion.svg",
   },
 ];
 

@@ -2,6 +2,7 @@ import { InitialNode } from "@/components/initial-node";
 import { DiscordNode } from "@/features/execution/components/discord/node";
 import { GeminiNode } from "@/features/execution/components/gemini/node";
 import { HttpRequestNode } from "@/features/execution/components/http-request/node";
+import { NotionNode } from "@/features/execution/components/notion/node";
 import { GoogleFormTrigger } from "@/features/triggers/components/google-form-trigger/node";
 import { ManualTriggerNode } from "@/features/triggers/components/manual-trigger/node";
 import { NodeType } from "@/generated/prisma/enums";
@@ -16,6 +17,7 @@ export const nodeComponents = {
     [NodeType.GOOGLE_FORM_TRIGGER]: GoogleFormTrigger,
     [NodeType.GEMINI]: GeminiNode,
     [NodeType.DISCORD]: DiscordNode,
+    [NodeType.NOTION]: NotionNode,
 
 } as const satisfies NodeTypes;
 

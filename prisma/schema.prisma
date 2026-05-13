@@ -26,7 +26,7 @@ model User {
   accounts      Account[]
   workflows     Workflow[]
   credentials   Credential[]
-
+  integrations Integration[]
 
   @@unique([email])
   @@map("user")
@@ -106,6 +106,7 @@ enum NodeType {
   OPENAI
   DISCORD
   SLACK
+  NOTION
 }
 
 model Node {
@@ -192,4 +193,25 @@ model Execution {
   inngestEventId String @unique
 
   output Json?
+}
+
+
+model Integration {
+  id String @id @default(cuid())
+
+  provider String
+
+  accessToken String
+  refreshToken String?
+
+  metadata Json @default("{}")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([provider])
 }
