@@ -47,25 +47,51 @@ export async function GET(req: NextRequest) {
   );
 
   const data = await response.json();
-  const { access_token, refresh_token,workspace_id,workspace_name } = data;
+  const { access_token, refresh_token, workspace_id, workspace_name } = data;
 
-  await prisma.integration.create({
-    data: {
+  const existingIntegration = await prisma.integration.findFirst({
+    where: {
       provider: "notion",
-      accessToken: access_token,
-      refreshToken: refresh_token,
-      metadata: {
-        workspaceId: workspace_id,
-        workspaceName:workspace_name,
-      },
-      userId:session.user.id,
+      userId: session.user.id,
     },
   });
 
+  if (existingIntegration) {
+    console.log("Integration already exists");
+
+    // optional: update existing integration
+    await prisma.integration.update({
+      where: {
+        id: existingIntegration.id,
+      },
+      data: {
+        accessToken: access_token,
+        refreshToken: refresh_token,
+        metadata: {
+          workspaceId: workspace_id,
+          workspaceName: workspace_name,
+        },
+      },
+    });
+  } else {
+    // create new integration
+    await prisma.integration.create({
+      data: {
+        provider: "notion",
+        accessToken: access_token,
+        refreshToken: refresh_token,
+        metadata: {
+          workspaceId: workspace_id,
+          workspaceName: workspace_name,
+        },
+        userId: session.user.id,
+      },
+    });
+  }
 
   // return NextResponse.json(data);
   return NextResponse.redirect(
-    new URL("/workflows", req.url)
+    new URL("/workflows/cmp3syyrf0002vnf85qstv9cy", req.url)
   );
 
 
