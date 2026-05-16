@@ -89,6 +89,7 @@ export function RegisterForm() {
           router.push("/");
         },
         onError: (ctx) => {
+          console.error(ctx.error); 
           toast.error(ctx.error.message);
         }
       }
